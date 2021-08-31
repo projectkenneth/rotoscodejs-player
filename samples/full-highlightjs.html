@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https:///cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+</head>
+
+<body>
+    <h1>Full Sample with HighlightJS</h1>
+    <p>Full controllable player with syntax highlighting using HighlightJS</p>
+
+    <a href="#" onclick="rotoscodejsObj.play(); return false;">Play</a> | 
+    <a href="#" onclick="rotoscodejsObj.jump(0); rotoscodejsObj.play(); return false;">Play from beginning</a> | 
+    <a href="#" onclick="rotoscodejsObj.pause(); return false;">Pause</a> | 
+    <a href="#" onclick="rotoscodejsObj.stop(); return false;">Stop</a> | 
+    <a href="#" onclick="rotoscodejsObj.updateData(recordingData1); return false;">Update 1</a> | 
+    <a href="#" onclick="rotoscodejsObj.updateData(recordingData2); return false;">Update 2</a>
+    <pre><code id="codeplayer"></code></pre>
+    <div id="codeplayer-ts"></div>
+    <script type="text/javascript" src="../src/rotoscodejs-player.js"></script>
+    <script type="text/javascript">
+        var recordingData1 = {"endTimestampMS":3365,"initialText":"function myCodeIsAlive() {\r\n    return \"hello world!\";\r\n}","changeLog":[{"timestamp":753,"text":"function myCodeIsAlive() {\r\n    return \"hello f\";\r\n}"},{"timestamp":802,"text":"function myCodeIsAlive() {\r\n    return \"hello fr\";\r\n}"},{"timestamp":920,"text":"function myCodeIsAlive() {\r\n    return \"hello fro\";\r\n}"},{"timestamp":1039,"text":"function myCodeIsAlive() {\r\n    return \"hello from\";\r\n}"},{"timestamp":1161,"text":"function myCodeIsAlive() {\r\n    return \"hello from \";\r\n}"},{"timestamp":1865,"text":"function myCodeIsAlive() {\r\n    return \"hello from R\";\r\n}"},{"timestamp":2033,"text":"function myCodeIsAlive() {\r\n    return \"hello from Ro\";\r\n}"},{"timestamp":2112,"text":"function myCodeIsAlive() {\r\n    return \"hello from Rot\";\r\n}"},{"timestamp":2209,"text":"function myCodeIsAlive() {\r\n    return \"hello from Roto\";\r\n}"},{"timestamp":2306,"text":"function myCodeIsAlive() {\r\n    return \"hello from Rotos\";\r\n}"},{"timestamp":2456,"text":"function myCodeIsAlive() {\r\n    return \"hello from Rotosc\";\r\n}"},{"timestamp":2578,"text":"function myCodeIsAlive() {\r\n    return \"hello from Rotosco\";\r\n}"},{"timestamp":2661,"text":"function myCodeIsAlive() {\r\n    return \"hello from Rotoscod\";\r\n}"},{"timestamp":2805,"text":"function myCodeIsAlive() {\r\n    return \"hello from Rotoscode\";\r\n}"},{"timestamp":3025,"text":"function myCodeIsAlive() {\r\n    return \"hello from RotoscodeJ\";\r\n}"},{"timestamp":3119,"text":"function myCodeIsAlive() {\r\n    return \"hello from RotoscodeJS\";\r\n}"},{"timestamp":3365,"text":"function myCodeIsAlive() {\r\n    return \"hello from RotoscodeJS!\";\r\n}"}]};
+        var recordingData2 = {"endTimestampMS":4702,"initialText":"function myCodeIsAlive() {\r\n    return \"good day!\";\r\n}","changeLog":[{"timestamp":491,"text":"function myCodeIsAlive() {\r\n    return \"good day\";\r\n}"},{"timestamp":795,"text":"function myCodeIsAlive() {\r\n    return \"good day \";\r\n}"},{"timestamp":931,"text":"function myCodeIsAlive() {\r\n    return \"good day f\";\r\n}"},{"timestamp":979,"text":"function myCodeIsAlive() {\r\n    return \"good day fr\";\r\n}"},{"timestamp":1087,"text":"function myCodeIsAlive() {\r\n    return \"good day fro\";\r\n}"},{"timestamp":1148,"text":"function myCodeIsAlive() {\r\n    return \"good day from\";\r\n}"},{"timestamp":1299,"text":"function myCodeIsAlive() {\r\n    return \"good day from \";\r\n}"},{"timestamp":1423,"text":"function myCodeIsAlive() {\r\n    return \"good day from r\";\r\n}"},{"timestamp":1546,"text":"function myCodeIsAlive() {\r\n    return \"good day from ro\";\r\n}"},{"timestamp":1651,"text":"function myCodeIsAlive() {\r\n    return \"good day from rot\";\r\n}"},{"timestamp":1743,"text":"function myCodeIsAlive() {\r\n    return \"good day from roto\";\r\n}"},{"timestamp":2034,"text":"function myCodeIsAlive() {\r\n    return \"good day from rot\";\r\n}"},{"timestamp":2138,"text":"function myCodeIsAlive() {\r\n    return \"good day from ro\";\r\n}"},{"timestamp":2255,"text":"function myCodeIsAlive() {\r\n    return \"good day from r\";\r\n}"},{"timestamp":2370,"text":"function myCodeIsAlive() {\r\n    return \"good day from \";\r\n}"},{"timestamp":2957,"text":"function myCodeIsAlive() {\r\n    return \"good day from R\";\r\n}"},{"timestamp":3163,"text":"function myCodeIsAlive() {\r\n    return \"good day from Ro\";\r\n}"},{"timestamp":3267,"text":"function myCodeIsAlive() {\r\n    return \"good day from Rot\";\r\n}"},{"timestamp":3361,"text":"function myCodeIsAlive() {\r\n    return \"good day from Roto\";\r\n}"},{"timestamp":3478,"text":"function myCodeIsAlive() {\r\n    return \"good day from Rotos\";\r\n}"},{"timestamp":3626,"text":"function myCodeIsAlive() {\r\n    return \"good day from Rotosc\";\r\n}"},{"timestamp":3774,"text":"function myCodeIsAlive() {\r\n    return \"good day from Rotosco\";\r\n}"},{"timestamp":3904,"text":"function myCodeIsAlive() {\r\n    return \"good day from Rotoscod\";\r\n}"},{"timestamp":4104,"text":"function myCodeIsAlive() {\r\n    return \"good day from Rotoscode\";\r\n}"},{"timestamp":4368,"text":"function myCodeIsAlive() {\r\n    return \"good day from RotoscodeJ\";\r\n}"},{"timestamp":4472,"text":"function myCodeIsAlive() {\r\n    return \"good day from RotoscodeJS\";\r\n}"},{"timestamp":4702,"text":"function myCodeIsAlive() {\r\n    return \"good day from RotoscodeJS!\";\r\n}"}]};
+
+        var rotoscodejsObj = rotoscodejs({
+            element: document.getElementById('codeplayer'),
+            recordingData: recordingData1,
+            onRender: (el) => {
+                hljs.highlightElement(el);
+            },
+            onPlay: (runningTimestamp, endTimestamp) => {
+                document.getElementById('codeplayer-ts').innerHTML = runningTimestamp + " / " + endTimestamp;
+            }
+        });
+    </script>
+</body>
+
+</html>
