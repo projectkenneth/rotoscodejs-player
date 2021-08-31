@@ -1,6 +1,6 @@
 # RotoscodeJS Player
 
-The embeddable player script used by the [RotoscodeJS Recorder (VS Code Extension)](https://github.com/projectkenneth/rotoscodejs-player).
+The embeddable player script used by the [RotoscodeJS Recorder (VS Code Extension)](https://github.com/projectkenneth/rotoscodejs-recorder).
 
 ## Contents
 - [Features](#features)
@@ -31,7 +31,7 @@ The embeddable player script used by the [RotoscodeJS Recorder (VS Code Extensio
 </script>
 ```
 
-The above code snippet is already provided by the [RotoscodeJS Recorder (VS Code Extension)](https://github.com/projectkenneth/rotoscodejs-player). To further understand what's happening here, let's break it down. 
+The above code snippet is already provided by the [RotoscodeJS Recorder (VS Code Extension)](https://github.com/projectkenneth/rotoscodejs-recorder). To further understand what's happening here, let's break it down. 
 
 There are 4 things you need to define to instantiate a `RotoscodeJS` player:
 1. The `element` is basically the HTML element where each frame will be rendered on.
