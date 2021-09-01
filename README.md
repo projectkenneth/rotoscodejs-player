@@ -1,5 +1,7 @@
 # RotoscodeJS Player
 
+[![](https://data.jsdelivr.com/v1/package/gh/projectkenneth/rotoscodejs-player/badge?style=rounded)](https://www.jsdelivr.com/package/gh/projectkenneth/rotoscodejs-player)
+
 The is the player widget used by the [RotoscodeJS Recorder (VS Code Extension)](https://github.com/projectkenneth/rotoscodejs-recorder).
 
 ## Contents
