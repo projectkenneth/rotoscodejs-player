@@ -1,6 +1,6 @@
 # RotoscodeJS Player
 
-The embeddable player script used by the [RotoscodeJS Recorder (VS Code Extension)](https://github.com/projectkenneth/rotoscodejs-recorder).
+The is the player widget used by the [RotoscodeJS Recorder (VS Code Extension)](https://github.com/projectkenneth/rotoscodejs-recorder).
 
 ## Contents
 - [Features](#features)
@@ -13,7 +13,7 @@ The embeddable player script used by the [RotoscodeJS Recorder (VS Code Extensio
 
 ## Basic Usage
 ```
-<script src="rotoscodejs-player.min.js" type="text/javascript"></script>
+<script src="PATH_TO_ROTOSCODEJS_WIDGET_SCRIPT" type="text/javascript"></script>
 <script type="text/javascript">
     var recordingData = {truncated for simplicity};
     var rotoscodejsObj = rotoscodejs({
@@ -44,7 +44,7 @@ To control the `RotoscodeJS` player, you can call any of the functions below.
 
 | Function | Description |
 | --- | --- |
-| play | Start or continue playback. |
+| play | Start or continue playback. Has 1 optional parameter (`isLooped`) which sets the playback to loop. |
 | pause | Pauses the playback. |
 | jump | Jump to a specific timestamp. Playback will be paused. |
 | stop | Stops the playback. |
