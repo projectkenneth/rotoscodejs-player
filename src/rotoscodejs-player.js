@@ -1,75 +1,5 @@
-(function () {
-    function _updateDisplay(rotoscodejsObj) {
-        rotoscodejsObj.element.innerHTML = rotoscodejsObj.displayHTML;
-        rotoscodejsObj.onRender(rotoscodejsObj.element);
-    }
-
-    function _getHTMLForTimestamp(recordingData, runningTimeStamp, interval) {
-        let i = recordingData.changeLog.length - 1;
-        let nextTimeStamp = (runningTimeStamp + interval);
-
-        do {
-            let curItem = recordingData.changeLog[i];
-
-            if (runningTimeStamp <= curItem.timestamp &&
-                curItem.timestamp <= nextTimeStamp) {
-
-                return curItem.text;
-            } else {
-                i--;
-            }
-        } while (i >= 0);
-
-        return null;
-    }
-
-    function _playSnippet(rotoscodejsObj, isLooped) {
-        let recordingData = rotoscodejsObj.recordingData;
-
-        let htmlForTimestamp = _getHTMLForTimestamp(recordingData, rotoscodejsObj.runningTimeStamp, rotoscodejsObj.interval);
-
-        if (htmlForTimestamp !== null) {
-            rotoscodejsObj.displayHTML = htmlForTimestamp;
-
-            _updateDisplay(rotoscodejsObj);
-        }
-
-        rotoscodejsObj.onPlay(rotoscodejsObj.runningTimeStamp, rotoscodejsObj.recordingData.endTimestampMS);
-
-        rotoscodejsObj.runningTimeStamp += rotoscodejsObj.interval;
-
-        if (rotoscodejsObj.runningTimeStamp > recordingData.endTimestampMS) {
-            if (isLooped) {
-                rotoscodejsObj.runningTimeStamp = 0;
-                rotoscodejsObj.displayHTML = recordingData.initialText;
-            } else {
-                rotoscodejsObj.onPlay(rotoscodejsObj.recordingData.endTimestampMS, rotoscodejsObj.recordingData.endTimestampMS);
-                clearInterval(rotoscodejsObj.timer);
-            }
-        }
-    }
-
-    function _jump(rotoscodejsObj, timestamp, isPlaying, isLooped) {
-        clearInterval(rotoscodejsObj.timer);
-
-        rotoscodejsObj.runningTimeStamp = timestamp;
-
-        if (timestamp === 0) {
-            rotoscodejsObj.displayHTML = rotoscodejsObj.recordingData.initialText ? rotoscodejsObj.recordingData.initialText : '';
-        } else {
-            rotoscodejsObj.displayHTML = _getHTMLForTimestamp(rotoscodejsObj.recordingData, rotoscodejsObj.runningTimeStamp, rotoscodejsObj.interval);
-        }
-
-        _updateDisplay(rotoscodejsObj);
-
-        rotoscodejsObj.onPlay(rotoscodejsObj.runningTimeStamp, rotoscodejsObj.recordingData.endTimestampMS);
-
-        if (isPlaying) {
-            rotoscodejsObj.timer = setInterval(() => _playSnippet(rotoscodejsObj, isLooped), rotoscodejsObj.interval);
-        }
-    }
-
-    window.rotoscodejs = function (opts) {
+(function() {
+    function RotoscodeJSPlayer(opts) {
         let rotoscodejsObj = {
             interval: opts.interval ? opts.interval : 100,
             element: opts.element,
@@ -77,60 +7,137 @@
             runningTimeStamp: 0,
             displayHTML: opts.recordingData.initialText ? opts.recordingData.initialText : '',
             timer: null,
-            onRender: opts.onRender ? opts.onRender : (() => { }),
-            onPlay: opts.onPlay ? opts.onPlay : (() => { })
+            onRender: opts.onRender ? opts.onRender : (() => {}),
+            onPlay: opts.onPlay ? opts.onPlay : (() => {})
         };
 
         if (rotoscodejsObj.displayHTML !== '') {
             _updateDisplay(rotoscodejsObj);
         }
 
-        let _isPlaying = false;
-        let _isLooped = false;
+        this.isPlaying = false;
+        this.isLooped = false;
 
-        return {
-            play: function (isLooped) {
-                _isPlaying = true;
-                _isLooped = isLooped;
+        function _updateDisplay() {
+            rotoscodejsObj.element.innerHTML = rotoscodejsObj.displayHTML;
+            rotoscodejsObj.onRender(rotoscodejsObj.element);
+        }
 
-                clearInterval(rotoscodejsObj.timer);
+        function _getHTMLForTimestamp() {
+            let i = rotoscodejsObj.recordingData.changeLog.length - 1;
+            let nextTimeStamp = (rotoscodejsObj.runningTimeStamp + rotoscodejsObj.interval);
 
-                rotoscodejsObj.timer = setInterval(() => _playSnippet(rotoscodejsObj, isLooped), rotoscodejsObj.interval);
-            },
-            pause: function () {
-                _isPlaying = false;
-                _isLooped = false;
+            do {
+                let curItem = rotoscodejsObj.recordingData.changeLog[i];
 
-                clearInterval(rotoscodejsObj.timer);
-            },
-            jump: function (timestamp) {
-                _isPlaying = false;
-                _isLooped = false;
+                if (rotoscodejsObj.runningTimeStamp <= curItem.timestamp &&
+                    curItem.timestamp <= nextTimeStamp) {
 
-                if (timestamp > rotoscodejsObj.recordingData.endTimestampMS) {
-                    timestamp = rotoscodejsObj.recordingData.endTimestampMS;
-                } else if (timestamp < 0) {
-                    timestamp = 0;
+                    return curItem.text;
+                } else {
+                    i--;
                 }
+            } while (i >= 0);
 
-                _jump(rotoscodejsObj, timestamp, _isPlaying, _isLooped);
-            },
-            stop: function () {
-                _isPlaying = false;
-                _isLooped = false;
+            return null;
+        }
 
-                _jump(rotoscodejsObj, rotoscodejsObj.recordingData.endTimestampMS, _isPlaying, _isLooped);
-            },
-            updateData: function (recordingData) {
-                _isPlaying = false;
-                _isLooped = false;
+        function _playSnippet() {
+            let recordingData = rotoscodejsObj.recordingData;
 
-                rotoscodejsObj.recordingData = recordingData;
-                rotoscodejsObj.displayHTML = recordingData.initialText ? recordingData.initialText : '';
-                rotoscodejsObj.runningTimeStamp = 0;
+            let htmlForTimestamp = _getHTMLForTimestamp();
 
-                _jump(rotoscodejsObj, rotoscodejsObj.runningTimeStamp, _isPlaying, _isLooped);
+            if (htmlForTimestamp !== null) {
+                rotoscodejsObj.displayHTML = htmlForTimestamp;
+
+                _updateDisplay();
+            }
+
+            rotoscodejsObj.onPlay(rotoscodejsObj.runningTimeStamp, rotoscodejsObj.recordingData.endTimestampMS);
+
+            rotoscodejsObj.runningTimeStamp += rotoscodejsObj.interval;
+
+            if (rotoscodejsObj.runningTimeStamp > recordingData.endTimestampMS) {
+                if (this.isLooped) {
+                    rotoscodejsObj.runningTimeStamp = 0;
+                    rotoscodejsObj.displayHTML = recordingData.initialText;
+                } else {
+                    rotoscodejsObj.onPlay(rotoscodejsObj.recordingData.endTimestampMS, rotoscodejsObj.recordingData.endTimestampMS);
+                    clearInterval(rotoscodejsObj.timer);
+                }
             }
         }
+
+        function _jump(timestamp) {
+            clearInterval(rotoscodejsObj.timer);
+
+            rotoscodejsObj.runningTimeStamp = timestamp;
+
+            if (timestamp === 0) {
+                rotoscodejsObj.displayHTML = rotoscodejsObj.recordingData.initialText ? rotoscodejsObj.recordingData.initialText : '';
+            } else {
+                rotoscodejsObj.displayHTML = _getHTMLForTimestamp();
+            }
+
+            _updateDisplay();
+
+            rotoscodejsObj.onPlay(rotoscodejsObj.runningTimeStamp, rotoscodejsObj.recordingData.endTimestampMS);
+
+            if (this.isPlaying) {
+                rotoscodejsObj.timer = setInterval(() => _playSnippet(), rotoscodejsObj.interval);
+            }
+        }
+
+        this.play = function(isLooped) {
+            this.isPlaying = true;
+            this.isLooped = isLooped;
+
+            clearInterval(rotoscodejsObj.timer);
+
+            rotoscodejsObj.timer = setInterval(() => _playSnippet(), rotoscodejsObj.interval);
+        };
+
+        this.pause = function() {
+            this.isPlaying = false;
+            this.isLooped = false;
+
+            clearInterval(rotoscodejsObj.timer);
+        }
+
+        this.jump = function(timestamp) {
+            this.isPlaying = false;
+            this.isLooped = false;
+
+            if (timestamp > rotoscodejsObj.recordingData.endTimestampMS) {
+                timestamp = rotoscodejsObj.recordingData.endTimestampMS;
+            } else if (timestamp < 0) {
+                timestamp = 0;
+            }
+
+            _jump(timestamp);
+        }
+
+        this.stop = function() {
+            this.isPlaying = false;
+            this.isLooped = false;
+
+            _jump(rotoscodejsObj.recordingData.endTimestampMS);
+        }
+
+        this.updateData = function(recordingData) {
+            this.isPlaying = false;
+            this.isLooped = false;
+
+            rotoscodejsObj.recordingData = recordingData;
+            rotoscodejsObj.displayHTML = recordingData.initialText ? recordingData.initialText : '';
+
+            _jump(0);
+        }
+
+        return this;
     }
+
+    window.rotoscodejs = function(opts) {
+        return new RotoscodeJSPlayer(opts);
+    };
 })();
